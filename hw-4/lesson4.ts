@@ -85,24 +85,21 @@ const users: User[] = [
 // 1. Получить строку с именами и фамилиями всех пользователей через
 // запятую.
 function getStringUsers (users: User[]): string {
-  return users
-  .map(( { first_name, last_name}) => first_name + ' ' + last_name)
-  .join(', ')
+  return users.map(( { first_name, last_name}) => first_name + ' ' + last_name)
+    .join(', ')
 }
 console.log(getStringUsers(users))
 
 // 2. Создать массив из emails по алфавиту
 function getArrayEmails (users: User[]): any {
-  return users
-  .map(({ email }) => email)
-  .sort()
+  return users.map(({ email }) => email)
+    .sort()
 }
 console.log(getArrayEmails(users))
 
 // 3. Создать новый массив пользователей, где объект пользователя должен
 // содержать только id и поле, отвечающее за имя пользователя(например
 // username), которое должно содержать имя и фамилию.
-
 interface Obj {
   id:number
   username: string
@@ -110,7 +107,7 @@ interface Obj {
 
 function getNewArrayObjects (users: User[]): Obj[] {
   return users.map(({ id, first_name, last_name }): Obj => {
-      return {
+    return {
       id: id,
       username: first_name + ' ' + last_name
     }
@@ -120,11 +117,11 @@ console.log(getNewArrayObjects(users))
 
 // 4. Создать массив юзеров, где они отсортированы по возрасту по
 // возрастанию и все пользователи младше 40 лет.
-
 const minAge = 40
 
 function getArraySortAge (users: User[]): User[] {
-  return users.filter(({ age }) => age <= minAge).sort((a, b) => a.age - b.age)
+  return users.filter(({ age }) => age <= minAge)
+    .sort((a, b) => a.age - b.age)
 }
 console.log(getArraySortAge(users))
 
@@ -133,12 +130,11 @@ console.log(getArraySortAge(users))
 // b) количество пользователей старше 30
 // c) количество пользователей старше 40
 // d) количество пользователей старше 18
-
 interface ObjectFive {
   [propName:string] : number
 }
 
-const taskNumber = [18, 30, 40]
+const taskNumbers = [18, 30, 40]
 
 function getObjectAverageAge (users: User[]): ObjectFive {
   return {
@@ -150,7 +146,6 @@ function getObjectAverageAge (users: User[]): ObjectFive {
 }
 console.log(getObjectAverageAge(users))
 
-
 // 6. Создать объект, где ключ, это первая буква фамилии, а значение -
 // массив из фамилий пользователей начинающихся на эту букву. Объект
 // должен состоять только из ключей существующих фамилий в этом
@@ -158,16 +153,21 @@ console.log(getObjectAverageAge(users))
 // такого поля не должно быть в объекте. Пример того, что надо получить,
 // когда пользователи имеют следующие фамилии Snow, Felton , Ford, Ferdinand:
 // { s: [‘Snow’], f: ['Felton', 'Ford', 'Ferdinand' }
-
 interface ObjectSix {
   [propName:string] : string
 }
 
 function getObjectLastName (users: User[]): ObjectSix {
-  const arrLetter = new Set(users.filter(({ last_name }: User) => last_name).map(({ last_name }) => last_name[0]))
+  const arrLetter = new Set(
+    users.filter(({ last_name }: User) => last_name)
+      .map(({ last_name }) => last_name[0])
+  )
   const mapLetter = new Map()
   for ( let letter of [...arrLetter]) {
-    mapLetter.set(letter, users.map(({ last_name }) => last_name).filter(item => item.includes(letter)))
+    mapLetter.set(
+      letter,
+      users.map(({ last_name }) => last_name)
+        .filter(item => item.includes(letter)))
   }
   return Object.fromEntries(mapLetter)
 }

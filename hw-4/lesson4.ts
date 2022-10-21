@@ -139,9 +139,9 @@ const taskNumbers = [18, 30, 40]
 function getObjectAverageAge (users: User[]): ObjectFive {
   return {
    averageAge: users.reduce((acc, { age }) => acc + age, 0) / users.length,
-   userOldThirty: users.filter(({ age }) => age >= taskNumber[1]).length,
-   userOldFourty: users.filter(({ age }) => age >= taskNumber[2]).length,
-   userOldEighteen: users.filter(({ age }) => age >= taskNumber[0]).length,
+   userOldThirty: users.filter(({ age }) => age >= taskNumbers[1]).length,
+   userOldFourty: users.filter(({ age }) => age >= taskNumbers[2]).length,
+   userOldEighteen: users.filter(({ age }) => age >= taskNumbers[0]).length,
   }
 }
 console.log(getObjectAverageAge(users))

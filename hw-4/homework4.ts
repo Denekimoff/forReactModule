@@ -138,21 +138,21 @@ const films: Film[] = [
 function getArrayGenre ( films: Film[] ): Genre[] {
   return [
     ...new Set(
-      films.map(({ genre }) => genre)
-      .flat()
-      )
-    ]
+        films.map(({ genre }) => genre)
+          .flat()
+    )
+  ]
 }
 console.log(getArrayGenre(films))
 
 // 2. Собрать в массив всех актеров всех фильмов (без повторения)
 function getArrayActors ( films: Film[] ): string[] {
-  return [
-    ...new Set(
-      films.map(({ actors }) => actors)
-      .flat()
-      )
-    ]
+    return [
+      ...new Set(
+        films.map(({ actors }) => actors)
+          .flat()
+    )
+  ]
 }
 console.log(getArrayActors(films))
 
@@ -172,12 +172,12 @@ interface CutObjectFilms {
 
 function getArrayCutObjectsFilms ( films: Film[] ): CutObjectFilms[] {
   return films.filter(item => item.id)
-  .map(({ id, title, released, plot }): CutObjectFilms => ({
-    id,
-    title,
-    released,
-    plot,
-  }))
+    .map(({ id, title, released, plot }): CutObjectFilms => ({
+      id,
+      title,
+      released,
+      plot,
+    }))
 }
 console.log(getArrayCutObjectsFilms(films))
 
@@ -190,7 +190,6 @@ console.log(getArrayFilterYear(films, 2001))
 
 // 6. Создать функцию, которая бы принимала массив фильмов и строку. А результатом этой функции должен быть новый
 // отфильтрованный массив, с фильмами, где строка входит в название фильма.
-
 function getArrayFilterSubstringTitle ( films: Film[], substring: string ): Film[] {
   return films.filter(({ title }) => title.toLowerCase().includes(substring.toLowerCase()))
 }
@@ -198,13 +197,9 @@ console.log(getArrayFilterSubstringTitle(films, 'Harry'))
 
 // 7. Создать функцию, которая бы принимала массив фильмов и строку. А результатом этой функции должен быть
 // отфильтрованный массив, с фильмами где строка входит в название фильма или в его сюжет.
-
 function getArrayFilterSubstringTitlePlot ( films: Film[], substring: string ): Film[] {
-  return films.filter(({ title, plot }) => {
-    if (title.toLowerCase().includes(substring.toLowerCase()) || plot.toLowerCase().includes(substring.toLowerCase())) {
-    return true
-    }
-  })
+  return films.filter(({ title, plot }) => title.toLowerCase().includes(substring.toLowerCase()) ||
+    plot.toLowerCase().includes(substring.toLowerCase()))
 }
 console.log(getArrayFilterSubstringTitlePlot(films, 'her ledger when a dangerous'))
 
@@ -214,12 +209,7 @@ console.log(getArrayFilterSubstringTitlePlot(films, 'her ledger when a dangerous
 // этой функции должен быть отфильтрованный массив, где параметры 2 и 3 равны в объекте фильма.
 // Например: передаем (films, 'title', 'Black Widow') и на выходе получаем фильм с id=1,
 // если передаем (films, 'year', 2011) , то получаем фильм с id=2
-
-function getArrayFilterKeyValue ( films: Film[], key: string, value: string | number ): Film[] {
-  return films.filter((film: Film) => {
-    if (film[key] === value) {
-      return true
-    }
-  })
+function getArrayFilterKeyValue ( films: Film[], key: any, value: string | number ): Film[] {
+  return films.filter((film: Film) => film[key] === value)
 }
 console.log(getArrayFilterKeyValue(films, 'title', 'Star Wars'))

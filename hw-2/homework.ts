@@ -2,17 +2,15 @@
 // используйте все возможные типы для типизации, включая пользовательские типы
 
 //------- #1 --------
-type Faculty = "History department" | "Department of Biology" | "Faculty of Mathematics" | "Faculty of Design"
-
-type Subject = "The World History" | "History of Rome" | "biology" | "chemistry" | "mathematics" | "geometry" | "trigonometry" | "ui" | "ux"|"graphic design"
-type Subjects = Subject[]
-
-type Faculties = {
+interface Faculties {
     id: number
-    faculty: Faculty
-    subjects: Subjects
+    faculty: "History department" | "Department of Biology" | "Faculty of Mathematics" | "Faculty of Design"
+    subjects: Subject[]
     countStudents: number
 }
+
+type Subject = "The World History" | "History of Rome" | "biology" | "chemistry" | "mathematics" | "geometry" |
+    "trigonometry" | "ui" | "ux" | "graphic design"
 
 const faculties: Faculties[] = [
     {
@@ -42,54 +40,29 @@ const faculties: Faculties[] = [
 ]
 
 //------- #2 -------
-type Title = "Black Widow" | "Harry Potter and the Deathly Hallows: Part 2"
-
-type Year = 2021 | 2011
-
-type Released = "09 Jul 2021" | "15 Jul 2011"
-
-type Genre = "Action" | "Sci-Fi" | "Adventure" | "Adventure" | "Drama" | "Fantasy"
-type Genres = Genre[]
-
-type Director = "Cate Shortland" | "David Yates"
-
-type Writer = "Eric Pearson" | "Jac Schaeffer" | "Ned Benson" | "Steve Kloves" | "J.K. Rowling"
-type Writers = Writer[]
-
-type Actor = "Scarlett Johansson" | "Florence Pugh" | "David Harbour" | "Daniel Radcliffe" | "Emma Watson" | "Rupert Grint"
-type Actors = Actor[]
-
-type Country = "United States" | "United Kingdom"
-type Countrys = Country[]
-
-type Poster = "https://m.media-amazon.com/images/M/MV5BNjRmNDI5MjMtMmFhZi00YzcwLWI4ZGItMGI2MjI0N2Q3YmIwXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg" | "https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWIxLTk0N2UtN2ZlYTdkN2IzNDNlXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg"
-
-type Type = "movie"
-
-type Production = "Marvel Studios" | "Heyday Films, Moving Picture Company, Warner Bros."
-
-
-type Movies = {
+interface Movie {
     id: number
-    title: Title
-    year: Year
-    released: Released
+    title: string
+    year: number
+    released: string
     runtime: string
-    genre: Genres
-    director: Director
-    writer: Writers
-    actors: Actors
+    genre: Genre[]
+    director: string
+    writer: string[]
+    actors: string[]
     plot: string
-    country: Countrys
-    poster: Poster
+    country: string[]
+    poster: string
     imdbRating: number
     imdbVotes: number
-    type: Type
+    type: "movie"
     boxOffice: string
-    production: Production
+    production: string
 }
 
-const movies: Movies[] = [
+type Genre = "Action" | "Sci-Fi" | "Adventure" | "Adventure" | "Drama" | "Fantasy"
+
+const movies: Movie[] = [
     {
         id: 1,
         title: "Black Widow",

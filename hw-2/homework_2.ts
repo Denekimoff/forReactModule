@@ -2,86 +2,88 @@
 // каждый вложенный объект и идентичные повторяющиеся свойста вынести в отдельный type/interface
 // для описания полей language и genres используйте литеральные типы и объединение (Пример: type Name = 'John' | 'Anna')
 
-type Previousepisode = {
-    "href": "https://api.tvmaze.com/episodes/2117447" | "https://api.tvmaze.com/episodes/64040" | "https://api.tvmaze.com/episodes/2166477"
+// Main interface 1
+interface Shows {
+    score: number
+    show: Show
 }
 
-type Self = {
-    "href": "https://api.tvmaze.com/shows/5451" | "https://api.tvmaze.com/shows/722" | "https://api.tvmaze.com/shows/57291"
+// inner Shows 1.1
+interface Show {
+    id: number
+    url: string
+    name: string
+    type: "Scripted"
+    language: string
+    genres: Genre[]
+    status: "Ended" | "Running"
+    runtime: number | null
+    averageRuntime: number
+    premiered: string
+    ended: string | null
+    officialSite: string | null
+    schedule: Schedule
+    rating: Rating
+    weight: number
+    network: Network
+    webChannel: string | null
+    dvdCountry: string | null
+    externals: Externals
+    image: Image
+    summary: string
+    updated: number
+    _links: Links
 }
 
-type Links = {
-    "self": Self
-    "previousepisode": Previousepisode
+// inner Show 1.1.1
+type Genre = "Comedy" | "Family" | "Romance" | "Drama"
+
+// inner Show 1.1.1
+interface Schedule {
+    time: string
+    days: string[]
 }
 
-type Image = {
-    "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/22/55709.jpg" | "https://static.tvmaze.com/uploads/images/medium_portrait/6/15097.jpg" | "https://static.tvmaze.com/uploads/images/medium_portrait/354/887264.jpg"
-    "original": "https://static.tvmaze.com/uploads/images/original_untouched/22/55709.jpg" | "https://static.tvmaze.com/uploads/images/original_untouched/6/15097.jpg" | "https://static.tvmaze.com/uploads/images/original_untouched/354/887264.jpg"
+// inner Show 1.1.1
+interface Rating {
+    average: number | null
 }
 
-type Externals = {
-    "tvrage": null | 5820
-    "thetvdb": 262042 | 71292 | 409152
-    "imdb": "tt2359096" | "tt0088526" | "tt15371940"
+// inner Show 1.1.1
+interface Network {
+    id: number
+    name: string
+    country: Country
+    officialSite: string | null
 }
 
-type Countryy = {
-    "name": "Netherlands" | "United States" | "United Kingdom"
-    "code": "NL" | "US" | "GB"
-    "timezone": "Europe/Amsterdam" | "America/New_York" | "Europe/London"
+// inner Network 1.1.1.1
+interface Country {
+    [propName: string]: string
 }
 
-type Network = {
-    "id": 112 | 1 | 41
-    "name": "RTL4" | "NBC" | "E4"
-    "country": Countryy
-    "officialSite": null | "https://www.nbc.com/"
+// inner Show 1.1.1
+interface Externals {
+    tvrage: number | null
+    thetvdb: number
+    imdb: string
 }
 
-type Rating = {
-    "average": number
+// inner Show 1.1.1
+interface Image {
+    [propName: string]: string
 }
 
-type Days = "Saturday" | "Tuesday"
-
-type Schedule = {
-    "time": "20:00" | "21:00" | ""
-    "days": Days[]
+// inner Show 1.1.1
+interface Links {
+    [propName: string]: Href
 }
 
-type Genr = "Comedy" | "Family" | "Romance" | "Drama"
-
-type Show = {
-    "id": 5451 | 722 | 57291
-    "url": "https://www.tvmaze.com/shows/5451/golden-girls" | "https://www.tvmaze.com/shows/722/the-golden-girls" | "https://www.tvmaze.com/shows/57291/the-holden-girls-mandy-myrtle"
-    "name": "Golden Girls" | "The Holden Girls: Mandy & Myrtle" | "The Golden Girls"
-    "type": "Scripted"
-    "language": "Dutch" | "English"
-    "genres": Genr[]
-    "status": "Ended" | "Running"
-    "runtime": 30 | null
-    "averageRuntime": 30 | 32
-    "premiered": "2012-08-25" | "1985-09-14" | "2021-09-07"
-    "ended": "2012-11-03" | "1992-05-09" | null
-    "officialSite": null | "https://www.channel4.com/programmes/the-holden-girls-mandy-myrtle/"
-    "schedule": Schedule
-    "rating": Rating
-    "weight": 78 | 94 | 59
-    "network": Network
-    "webChannel": null
-    "dvdCountry": null
-    "externals": Externals
-    "image": Image
-    "summary": string
-    "updated": 1624285127 | 1648572955 | 1632389837
-    "_links": Links
+// inner Links 1.1.1.1
+interface Href {
+    href: string
 }
 
-type Shows = {
-    "score": number
-    "show": Show
-}
 const shows: Shows[] = [
     {
         "score": 1.1905451,

@@ -1,43 +1,31 @@
-// C массивом фильмов  сделать следующие задачи, используя map/reduce вместо for, forEach:
-// 1. Собрать в массив все жанры фильмов (без повторения)
-// 2. Собрать в массив всех актеров всех фильмов (без повторения)
-// 3. Отсортировать фильмы по рейтингу по убыванию
-// 4. Создать новый массив, где объекты фильмов будут состоять из следующих полей: id, title, released, plot
-// 5. Создать функцию, которая бы принимала массив фильмов и число. А результатом этой функции должен быть
-// отфильтрованный массив, с фильмами где число равно году выхода фильма.
-// 6. Создать функцию, которая бы принимала массив фильмов и строку. А результатом этой функции должен быть новый
-// отфильтрованный массив, с фильмами, где строка входит в название фильма.
-// 7. Создать функцию, которая бы принимала массив фильмов и строку. А результатом этой функции должен быть
-// отфильтрованный массив, с фильмами где строка входит в название фильма или в его сюжет.
-// 8. Создать функцию, которая бы принимала 3 параметра:
-// 1) массив фильмов
-// 2) строка(название поля, например 'title') и строку/число(значение поля "Black Widow"). А результатом
-// этой функции должен быть отфильтрованный массив, где параметры 2 и 3 равны в объекте фильма.
-// Например: передаем (films, 'title', 'Black Widow') и на выходе получаем фильм с id=1,
-// если передаем (films, 'year', 2011) , то получаем фильм с id=2
+//? C массивом фильмов  сделать следующие задачи, используя map/reduce вместо for, forEach:
 
-type Genre = "Action" | "Sci-Fi" | "Adventure" | "Drama" | "Fantasy" | "Family"
-type Type = "movie"
-
+// Main interface
 interface Film {
-  id?: number
-  title: string
-  year: number
-  released: string
-  runtime: string
-  genre: Genre[]
-  director: string
-  writer: string
-  actors: string[]
-  plot: string
-  country: string
-  poster: string
-  imdbRating: number
-  imdbVotes: number
-  type?: Type
-  boxOffice: string
-  production: string
+    id?: number
+    title: string
+    year: number
+    released: string
+    runtime: string
+    genre: Genre[]
+    director: string
+    writer: string
+    actors: string[]
+    plot: string
+    country: string
+    poster: string
+    imdbRating: number
+    imdbVotes: number
+    type?: Type
+    boxOffice: string
+    production: string
 }
+
+// inner Film
+type Genre = "Action" | "Sci-Fi" | "Adventure" | "Drama" | "Fantasy" | "Family"
+
+// inner Film
+type Type = "movie"
 
 const films: Film[] = [
   {
@@ -136,23 +124,23 @@ const films: Film[] = [
 
 // 1. Собрать в массив все жанры фильмов (без повторения)
 function getArrayGenre ( films: Film[] ): Genre[] {
-  return [
-    ...new Set(
-        films.map(({ genre }) => genre)
-          .flat()
-    )
-  ]
+    return [
+        ...new Set(
+            films.map(({ genre }) => genre)
+                .flat()
+        )
+    ]
 }
 console.log(getArrayGenre(films))
 
 // 2. Собрать в массив всех актеров всех фильмов (без повторения)
 function getArrayActors ( films: Film[] ): string[] {
     return [
-      ...new Set(
-        films.map(({ actors }) => actors)
-          .flat()
-    )
-  ]
+        ...new Set(
+            films.map(({ actors }) => actors)
+                .flat()
+        )
+    ]
 }
 console.log(getArrayActors(films))
 
@@ -164,42 +152,42 @@ console.log(getSortRatingFilm(films))
 
 // 4. Создать новый массив, где объекты фильмов будут состоять из следующих полей: id, title, released, plot
 interface CutObjectFilms {
-  id: any
-  title: string
-  released: string
-  plot: string
+    id: any
+    title: string
+    released: string
+    plot: string
 }
 
 function getArrayCutObjectsFilms ( films: Film[] ): CutObjectFilms[] {
-  return films.filter(item => item.id)
-    .map(({ id, title, released, plot }): CutObjectFilms => ({
-      id,
-      title,
-      released,
-      plot,
-    }))
+    return films.filter(item => item.id)
+        .map(({ id, title, released, plot }): CutObjectFilms => ({
+            title,
+            id,
+            plot,
+            released,
+        }))
 }
 console.log(getArrayCutObjectsFilms(films))
 
 // 5. Создать функцию, которая бы принимала массив фильмов и число. А результатом этой функции должен быть
 // отфильтрованный массив, с фильмами где число равно году выхода фильма.
 function getArrayFilterYear ( films: Film[], years: number ): Film[] {
-  return films.filter(({ year }) => year === years)
+    return films.filter(({ year }) => year === years)
 }
 console.log(getArrayFilterYear(films, 2001))
 
 // 6. Создать функцию, которая бы принимала массив фильмов и строку. А результатом этой функции должен быть новый
 // отфильтрованный массив, с фильмами, где строка входит в название фильма.
 function getArrayFilterSubstringTitle ( films: Film[], substring: string ): Film[] {
-  return films.filter(({ title }) => title.toLowerCase().includes(substring.toLowerCase()))
+    return films.filter(({ title }) => title.toLowerCase().includes(substring.toLowerCase()))
 }
 console.log(getArrayFilterSubstringTitle(films, 'Harry'))
 
 // 7. Создать функцию, которая бы принимала массив фильмов и строку. А результатом этой функции должен быть
 // отфильтрованный массив, с фильмами где строка входит в название фильма или в его сюжет.
 function getArrayFilterSubstringTitlePlot ( films: Film[], substring: string ): Film[] {
-  return films.filter(({ title, plot }) => title.toLowerCase().includes(substring.toLowerCase()) ||
-    plot.toLowerCase().includes(substring.toLowerCase()))
+    return films.filter(({ title, plot }) => title.toLowerCase().includes(substring.toLowerCase()) ||
+        plot.toLowerCase().includes(substring.toLowerCase()))
 }
 console.log(getArrayFilterSubstringTitlePlot(films, 'her ledger when a dangerous'))
 
@@ -210,6 +198,6 @@ console.log(getArrayFilterSubstringTitlePlot(films, 'her ledger when a dangerous
 // Например: передаем (films, 'title', 'Black Widow') и на выходе получаем фильм с id=1,
 // если передаем (films, 'year', 2011) , то получаем фильм с id=2
 function getArrayFilterKeyValue ( films: Film[], key: any, value: string | number ): Film[] {
-  return films.filter((film: Film) => film[key] === value)
+    return films.filter((film: Film) => film[key] === value)
 }
 console.log(getArrayFilterKeyValue(films, 'title', 'Star Wars'))

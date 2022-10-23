@@ -1328,9 +1328,11 @@ console.log(getArrayAllGenres(schedule))
 
 // 4. Найти шоу с наибольшим количеством жанров (genres), если их несколько вывести несколько через запятую
 function getStringBigAverageGenresShow ( schedule: Schedule[] ): any {
-    return schedule.map(( { _embedded: { show: { genres } } } ) => genres)
+    const length = schedule.map(( { _embedded: { show: { genres } } } ) => genres)
         .sort((a, b) => a.length - b.length)
-            .pop()?.flat()
+            .pop()?.flat().length
+    return schedule.filter(({ _embedded: { show: { genres } } } ) => genres.length == length)
+        .map(({ name }) =>  name).join(', ')
 }
 console.log(getStringBigAverageGenresShow(schedule))
 
